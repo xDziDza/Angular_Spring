@@ -1,0 +1,13 @@
+<ul>
+  @for (p of persons; track p.id) {
+    <li>
+      <strong>{{ p.firstName }} {{ p.familyName }}</strong>
+      (wiek: {{ p.age ?? '-' }})
+
+      <a [routerLink]="['/details', p.id]">Szczegóły</a>
+      <button type="button" (click)="delete(p.id)">Usuń</button>
+    </li>
+  } @empty {
+    <li>Brak danych.</li>
+  }
+</ul>
