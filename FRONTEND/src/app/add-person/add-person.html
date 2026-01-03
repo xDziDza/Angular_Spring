@@ -1,38 +1,61 @@
-<h2>Dodaj osobę</h2>
+<mat-card class="page-card">
+  <mat-card-title>Dodaj osobę</mat-card-title>
 
-<form (ngSubmit)="save()">
-  <fieldset>
-    <label>Imię</label>
-    <input name="firstName" [(ngModel)]="person.firstName" />
-  </fieldset>
+  <mat-card-content>
+    <form #f="ngForm" (ngSubmit)="save()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Imię</mat-label>
+          <input matInput name="firstName" required [(ngModel)]="person.firstName" #firstName="ngModel" />
+          @if (firstName.invalid && (firstName.dirty || firstName.touched)) {
+            <mat-error>Imię jest wymagane</mat-error>
+          }
+        </mat-form-field>
 
-  <fieldset>
-    <label>Nazwisko</label>
-    <input name="familyName" [(ngModel)]="person.familyName" />
-  </fieldset>
+        <mat-form-field appearance="outline">
+          <mat-label>Nazwisko</mat-label>
+          <input matInput name="familyName" required [(ngModel)]="person.familyName" #familyName="ngModel" />
+          @if (familyName.invalid && (familyName.dirty || familyName.touched)) {
+            <mat-error>Nazwisko jest wymagane</mat-error>
+          }
+        </mat-form-field>
 
-  <fieldset>
-    <label>Wiek</label>
-    <input type="number" name="age" [(ngModel)]="person.age" />
-  </fieldset>
+        <mat-form-field appearance="outline">
+          <mat-label>Wiek</mat-label>
+          <input matInput type="number" name="age" min="0" [(ngModel)]="person.age" />
+        </mat-form-field>
+      </div>
 
-  <h3>Adres</h3>
+      <h3 class="section-title">Adres</h3>
 
-  <fieldset>
-    <label>Miasto</label>
-    <input name="city" [(ngModel)]="person.address.city" />
-  </fieldset>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Miasto</mat-label>
+          <input matInput name="city" [(ngModel)]="person.address.city" />
+        </mat-form-field>
 
-  <fieldset>
-    <label>Ulica</label>
-    <input name="street" [(ngModel)]="person.address.street" />
-  </fieldset>
+        <mat-form-field appearance="outline">
+          <mat-label>Ulica</mat-label>
+          <input matInput name="street" [(ngModel)]="person.address.street" />
+        </mat-form-field>
 
-  <fieldset>
-    <label>Kod pocztowy</label>
-    <input name="postCode" [(ngModel)]="person.address.postCode" />
-  </fieldset>
+        <mat-form-field appearance="outline">
+          <mat-label>Kod pocztowy</mat-label>
+          <input matInput name="postCode" [(ngModel)]="person.address.postCode" />
+        </mat-form-field>
+      </div>
 
-  <button type="submit">Zapisz</button>
-  <a routerLink="">Anuluj</a>
-</form>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">
+          <mat-icon>save</mat-icon>
+          Zapisz
+        </button>
+
+        <a mat-stroked-button routerLink="">
+          <mat-icon>close</mat-icon>
+          Anuluj
+        </a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

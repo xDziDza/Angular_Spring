@@ -1,10 +1,18 @@
-<header class="app-header">
-  <h1>lab13-angular2</h1>
-  <nav>
-    <a routerLink="/">Lista</a>
-    <a routerLink="/add">Dodaj osobę</a>
-  </nav>
-</header>
+<mat-toolbar class="app-toolbar" color="primary">
+  <span class="app-title">lab13-angular2</span>
+
+  <span class="spacer"></span>
+
+  <a mat-stroked-button routerLink="/">
+    <mat-icon>list</mat-icon>
+    Lista
+  </a>
+
+  <a mat-raised-button routerLink="/add" class="add-btn">
+    <mat-icon>person_add</mat-icon>
+    Dodaj osobę
+  </a>
+</mat-toolbar>
 
 <main class="app-main">
   <router-outlet></router-outlet>

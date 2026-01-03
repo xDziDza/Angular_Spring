@@ -1,13 +1,43 @@
-<ul>
-  @for (p of persons; track p.id) {
-    <li>
-      <strong>{{ p.firstName }} {{ p.familyName }}</strong>
-      (wiek: {{ p.age ?? '-' }})
+<mat-card class="page-card">
+  <mat-card-title>Lista osób</mat-card-title>
+  <mat-card-content>
+    @if (persons.length > 0) {
+      <table mat-table [dataSource]="persons" class="mat-elevation-z0 app-table">
 
-      <a [routerLink]="['/details', p.id]">Szczegóły</a>
-      <button type="button" (click)="delete(p.id)">Usuń</button>
-    </li>
-  } @empty {
-    <li>Brak danych.</li>
-  }
-</ul>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Osoba</th>
+          <td mat-cell *matCellDef="let p">
+            <strong>{{ p.firstName }} {{ p.familyName }}</strong>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="age">
+          <th mat-header-cell *matHeaderCellDef>Wiek</th>
+          <td mat-cell *matCellDef="let p">
+            {{ p.age ?? '-' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Akcje</th>
+          <td mat-cell *matCellDef="let p" class="actions-cell">
+            <a mat-stroked-button [routerLink]="['/details', p.id]">
+              <mat-icon>visibility</mat-icon>
+              Szczegóły
+            </a>
+
+            <button mat-raised-button type="button" class="danger-btn" (click)="confirmDelete(p)">
+              <mat-icon>delete</mat-icon>
+              Usuń
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    } @else {
+      <p>Brak danych.</p>
+    }
+  </mat-card-content>
+</mat-card>
